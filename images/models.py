@@ -11,6 +11,7 @@ class Image(models.Model):
     slug=models.SlugField(max_length=200,blank=True)
     url=models.URLField(max_length=2000)
     image=models.ImageField(upload_to='images/%Y/%m/%d')
+    total_likes=models.PositiveIntegerField(default=0)
     description=models.TextField(blank=True)
     created=models.DateField(auto_now_add=True)
     #many to many relationship
@@ -20,7 +21,8 @@ class Image(models.Model):
     #order
     class Meta:
         indexes=[
-            models.Index(fields=['-created'])
+            models.Index(fields=['-created']),
+            models.Index(fields=['-total_likes'])
         ]
         ordering=['-created']
     def __str__(self):

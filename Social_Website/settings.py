@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from secret import *
+from django.urls import reverse_lazy
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,7 +25,7 @@ SECRET_KEY = 'django-insecure-+gynt_qrgw#g7lcccu*w3f_c8_fp364z!ib+7-jbpjajn2-*@n
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+#THUMBNAIL_DEBUG=True
 ALLOWED_HOSTS = ['mysite.com','127.0.0.1','localhost']
 
 
@@ -33,6 +34,7 @@ ALLOWED_HOSTS = ['mysite.com','127.0.0.1','localhost']
 INSTALLED_APPS = [
     #account config
     'account.apps.AccountConfig',
+    'actions.apps.ActionsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -166,3 +168,7 @@ SOCIAL_AUTH_PIPELINE=[
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 ]
+
+ABSOLUTE_URL_OVERRIDES={
+    'auth.user_detail':lambda u:reverse_lazy('user_detail',args=[u.username])
+}
