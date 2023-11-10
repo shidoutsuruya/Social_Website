@@ -48,9 +48,11 @@ INSTALLED_APPS = [
     'images.apps.ImagesConfig',
     #thumber nail
     'easy_thumbnails',
+    #debug toolbar
+    'debug_toolbar',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE = [   
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #debug toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'Social_Website.urls'
@@ -172,3 +176,14 @@ SOCIAL_AUTH_PIPELINE=[
 ABSOLUTE_URL_OVERRIDES={
     'auth.user_detail':lambda u:reverse_lazy('user_detail',args=[u.username])
 }
+
+#debug 
+INTERNAL_IPS=['127.0.0.1',]
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type("application/javascript",".js",True)
+    mimetypes.add_type("text/css",".css",True)
+#redis setting
+REDIS_HOST='localhost'
+REDIS_PORT=6379
+REDIS_DB=0
